@@ -11762,11 +11762,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luc\\source\\repos\\coolo64\\TransportCanada\\TransportCanada\\TransportCanada\\TransportCanada.csproj",
+      "projectUniqueName": "C:\\Users\\Luc\\source\\repos\\coolo64\\TransportCanada\\API1\\TransportCanada\\TransportCanada.csproj",
       "projectName": "TransportCanada",
-      "projectPath": "C:\\Users\\Luc\\source\\repos\\coolo64\\TransportCanada\\TransportCanada\\TransportCanada\\TransportCanada.csproj",
+      "projectPath": "C:\\Users\\Luc\\source\\repos\\coolo64\\TransportCanada\\API1\\TransportCanada\\TransportCanada.csproj",
       "packagesPath": "C:\\Users\\Luc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luc\\source\\repos\\coolo64\\TransportCanada\\TransportCanada\\TransportCanada\\obj\\",
+      "outputPath": "C:\\Users\\Luc\\source\\repos\\coolo64\\TransportCanada\\API1\\TransportCanada\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
