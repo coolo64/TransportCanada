@@ -23,4 +23,3 @@ C:\Users\Luc\source\repos\coolo64\TransportCanada\API1\TransportCanada\obj\Debug
 C:\Users\Luc\source\repos\coolo64\TransportCanada\API1\TransportCanada\obj\Debug\netcoreapp2.1\TransportCanada.dll
 C:\Users\Luc\source\repos\coolo64\TransportCanada\API1\TransportCanada\obj\Debug\netcoreapp2.1\TransportCanada.pdb
 C:\Users\Luc\source\repos\coolo64\TransportCanada\API1\TransportCanada\obj\Debug\netcoreapp2.1\TransportCanada.csproj.CopyComplete
-C:\Users\Luc\source\repos\coolo64\TransportCanada\API1\TransportCanada\obj\Debug\netcoreapp2.1\Razor\Views\API1\Index.g.cshtml.cs

@@ -8,6 +8,7 @@ using TransportCanada.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json.Serialization;
 
 namespace TransportCanada.Controllers
 {
