@@ -40,10 +40,10 @@ namespace TransportCanada.Controllers
                 List<Recall> recalls = JsonConvert.DeserializeObject<List<Recall>>(json);
                 if (!string.IsNullOrWhiteSpace(manRecalNo))
                 {
-                    recalls = recalls.Where(x => x.MANUFACTURER_RECALL_NO_TXT == manRecalNo).ToList();
+                    recalls = recalls.Where(x => x.MANUFACTURER_RECALL_NO_TXT.Contains(manRecalNo.Trim())).ToList();
                 }
 
-                return Json(recalls);
+                return Json(recalls, new JsonSerializerSettings() { Formatting = Formatting.Indented });
             }
 
 

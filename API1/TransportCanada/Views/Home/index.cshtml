@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .api{
+            border: 1px solid black;
+        }
+
+        .api > div {
+            padding: 10px;
+        }
+    </style>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        var contenuFichierAPI1;
+
+        var fichierJson = null;
+
+        /**
+         * Cache tous les DIVs sauf celle qui est nommé dans api
+         * param api L'id du DIV à faire apparaitre
+         */
+        function show(api) {
+            $("#instruction").hide();
+            $("#API1").hide();
+            $("#API2").hide();
+            $("#API3").hide();
+            $("#" + api).show();
+        }
+
+        /**
+         * Crée un fichier JSON téléchargeable ensuite exécute le téléchargement
+         * param Json Un object JSON à ajouter au fichier
+         * param api Le nom du API exécuté
+         */
+        function telechargerJson(json, api) {
+            console.log(json);
+            console.log(JSON.stringify(json));
+            var data = new Blob([JSON.stringify(json)], { type: "application/json" });
+
+            if (fichierJson !== null) {
+                window.URL.revokeObjectURL(fichierJson);
+            }
+
+            fichierJson = window.URL.createObjectURL(data);
+            var a = document.createElement("a");
+            a.setAttribute("download", "CSCompVehicleRecall" + api + ".json");
+            a.href = fichierJson;
+            document.body.appendChild(a);
+
+            // attendre pour que le lien soit ajouté au document
+            window.requestAnimationFrame(function () {
+                var event = new MouseEvent('click');
+                a.dispatchEvent(event);
+                document.body.removeChild(a);
+            });
+        }
+
+        /**
+         * Crée un tableau pour démontrer les données apparaissant dans le JSON
+         * param data le JSON à démontrer
+         * param api Le nom du API ou ajouter les rangées au tableau
+         */
+        function visionnerLeTableau(data, api) {
+            //console.log(data);
+
+            var table = $("#" + api).children().last().children().first();
+            table.html("");
+            var propriete = [];
+            for (var i = 0; i < data.length; ++i) {
+                for (var k in data[i]) {
+                    if (!propriete.find(x => x == k)) {
+                        propriete.push(k);
+                    }
+                }
+            }
+
+            var tr = document.createElement("tr");
+            for (var j = 0; j < propriete.length; ++j) {
+                var th = document.createElement("th");
+                th.innerHTML = propriete[j];
+                tr.appendChild(th);
+            }
+            table.append(tr);
+
+            for (var i = 0; i < data.length; ++i) {
+                tr = document.createElement("tr");
+                for (var j = 0; j < propriete.length; ++j) {
+                    var th = document.createElement("th");
+                    th.innerHTML = data[i][propriete[j]];
+                    tr.appendChild(th);
+                }
+                table.append(tr);
+            }
+        }
+
+
+        /**
+         * Exécute un POST au URL définit dans le champs #urlAPI1, le corps du post contient le contenu d'un fichier JSON ajouté au champs #fichierAPI1
+         */
+        function postAPI1() {
+            console.log("POST API1");
+            $("#btnAPI1").attr("disabled", "true");
+
+            $("#postResultAPI1").text("En cours d'exécution.");
+
+            url = $("#urlAPI1").val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: url,
+                data: contenuFichierAPI1,
+                success: function () {
+                    $("#postResultAPI1").text("Succès");
+                }
+            }).fail(function (data) {
+                $("#postResultAPI1").text("Erreur : " + data);
+            });
+        }
+
+        /**
+         * exécute un GET au URL définit dans le champs #urlAPI1 avec un filtre définit par #filtreAPI1
+         * param type Détermine la méthode qui sera exécuté après le GET
+         */
+        function getAPI1(type) {
+            console.log("GET API1");
+
+            $("#btnDownloadAPI1").attr("disabled", "true");
+            $("#btnVisionnerAPI1").attr("disabled", "true");
+
+            url = $("#urlAPI1").val() + "?manRecalNo=" + $("#filtreAPI1").val();
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    if (type == "download") {
+                        telechargerJson(data, "API1");
+                    }
+                    else {
+                        visionnerLeTableau(data, "API1");
+                    }
+                    $("#btnDownloadAPI1").removeAttr("disabled");
+                    $("#btnVisionnerAPI1").removeAttr("disabled");
+                }
+            });
+        }
+
+
+        //Ajouter les valeurs par défaut
+        $(document).ready(function () {
+            show("instruction");
+            $("#btnAPI1").attr("disabled", "true");
+
+            //Lire les données du fichier entrant
+            $("#fichierAPI1").on('change', event => {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                reader.addEventListener('load', event => {
+                    contenuFichierAPI1 = event.target.result;
+                    $("#btnAPI1").removeAttr("disabled");
+                });
+                reader.readAsText(file);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container" style="padding-top: 10px;">
+        <div class="row justify-content-around" style="margin-bottom: 10px;">
+            <button class="col-3 btn btn-primary" role="button" onclick="show('API1')">API 1</button>
+            <button class="col-3 btn btn-primary" role="button" onclick="show('API2')">API 2</button>
+            <button class="col-3 btn btn-primary" role="button" onclick="show('API3')">API 3</button>
+        </div>
+        <div class="row" id="instruction">
+            Veuillez cliquer sur un des API ci-haut.
+        </div>
+
+
+
+        <div class="row api" id="API1">
+            <div class="col">
+                <input type="text" class="form-control" id="urlAPI1" value="/API1/index" />
+            </div>
+            <div class="w-100"></div>
+            <div class="col-8">
+                <input class="form-control" type="file" id="fichierAPI1"  accept=".json" />
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary" id="btnAPI1" onclick="postAPI1()">POST &agrave; API 1</button>
+                <span id="postResultAPI1"></span>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-8">
+                <input type="text" class="form-control" id="filtreAPI1" placeholder="Rechercher par numéro de rappel du fabricant, laisser vide pour tous les résultats" />
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary" id="btnDownloadAPI1" onclick="getAPI1('download')">T&eacute;l&eacute;charger le JSON</button>
+                <button class="btn btn-secondary" id="btnVisionnerAPI1" onclick="getAPI1('visionner')">Visionner les données</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <table class="table">
+
+                </table>
+            </div>
+        </div>
+
+
+
+        <div class="row api" id="API2">
+            2
+        </div>
+
+
+
+        <div class="row api" id="API3">
+            3
+        </div>
+    </div>
+
+</body>
+</html>

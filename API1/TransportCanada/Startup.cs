@@ -48,7 +48,7 @@ namespace TransportCanada
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=API1}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
