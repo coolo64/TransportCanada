@@ -158,14 +158,17 @@
             show("instruction");
             $("#btnAPI1").attr("disabled", "true");
 
+            //Ajouter l'url du API 1 (intégré)
+            $("#urlAPI1").val("@(Context.Request.PathBase)/API1/index");
+
             //Lire les données du fichier entrant
             $("#fichierAPI1").on('change', event => {
-                var file = event.target.files[0];
-                var reader = new FileReader();
-                reader.addEventListener('load', event => {
-                    contenuFichierAPI1 = event.target.result;
+                            var file = event.target.files[0];
+                        var reader = new FileReader();
+                        reader.addEventListener('load', event => {
+                            contenuFichierAPI1 = event.target.result;
                     $("#btnAPI1").removeAttr("disabled");
-                });
+                    });
                 reader.readAsText(file);
             });
         });
@@ -186,7 +189,7 @@
 
         <div class="row api" id="API1">
             <div class="col">
-                <input type="text" class="form-control" id="urlAPI1" value="API1/index" />
+                <input type="text" class="form-control" id="urlAPI1" value="" />
             </div>
             <div class="w-100"></div>
             <div class="col-8">

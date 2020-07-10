@@ -46,8 +46,9 @@ namespace TransportCanada.Controllers
                 return Json(recalls, new JsonSerializerSettings() { Formatting = Formatting.Indented });
             }
 
-
-            return Json("Le fichier n'a pas été sauvegardé ou il n'y a pas de contenue.");
+            List<Dictionary<string, string>> erreur = new List<Dictionary<string, string>>() { new Dictionary<string, string>()};
+            erreur[0].Add("Erreur", "Le fichier n'a pas été sauvegardé ou il n'y a pas de contenue.");
+            return Json(erreur);
         }
 
         [HttpPost]
