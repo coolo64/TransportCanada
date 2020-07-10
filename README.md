@@ -5,7 +5,7 @@ Installation du Site web et de l'API 1 pour Windows IIS:
 1. Installer ASP.NET Core Runtime 3.1.15 - Windows Hosting Bundle (https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.5-windows-hosting-bundle-installer)
 2. Exécuter un IISRESET
 3. Créer un répertoir ou le site sera hébergé
-4. Copier le contenu de API1/TransportCanada/bin/Debug/netcoreapp2.1/publish au dossier créé au point 3
+4. Copier le contenu de SiteEtAPI1/TransportCanada/bin/Debug/netcoreapp2.1/publish au dossier créé au point 3
 5. Ouvrir IIS
 6. Créer un Application Pool nommé NetCore avec un ".NET CLR version" de "No Managed Code"
 7. Changer les permissions du dossier créé au point 3 ajouter "IIS AppPool\NetCore" avec la permission Modify
