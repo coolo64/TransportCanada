@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TransportCanada.Models;
 using System.Net.Http;
-using Newtonsoft.Json;
 using System.IO;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace TransportCanada.Controllers
@@ -43,7 +41,7 @@ namespace TransportCanada.Controllers
                     recalls = recalls.Where(x => x.MANUFACTURER_RECALL_NO_TXT.Contains(manRecalNo.Trim())).ToList();
                 }
 
-                return Json(recalls, new JsonSerializerSettings() { Formatting = Formatting.Indented });
+                return Json(recalls);
             }
 
             List<Dictionary<string, string>> erreur = new List<Dictionary<string, string>>() { new Dictionary<string, string>()};
@@ -81,7 +79,7 @@ namespace TransportCanada.Controllers
 
             string pathToJSON = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "json.json");
             string json = "";
-            using (FileStream stream = new FileStream(pathToJSON, FileMode.OpenOrCreate))
+            using (FileStream stream = new FileStream(pathToJSON, FileMode.Create))
             {
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.NullValueHandling = NullValueHandling.Ignore;

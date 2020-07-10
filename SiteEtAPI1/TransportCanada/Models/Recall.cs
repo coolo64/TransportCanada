@@ -8,12 +8,17 @@ namespace TransportCanada.Models
 {
     public class Recall
     {
-        public string recallNumber;
-        public string manufactureName;
-        public string makeName;
-        public string modelName;
-        public string recallYear;
+        [JsonProperty(PropertyName = "recallNumber")]
+        public string recallNumber { get; set; }
+        [JsonProperty(PropertyName = "manufactureName")]
+        public string manufactureName { get; set; }
+        [JsonProperty(PropertyName = "makeName")]
+        public string makeName { get; set; }
+        [JsonProperty(PropertyName = "modelName")]
+        public string modelName { get; set; }
+        [JsonProperty(PropertyName = "recallYear")]
+        public string recallYear { get; set; }
         [JsonProperty (PropertyName = "MANUFACTURER_RECALL_NO_TXT")]
-        public string MANUFACTURER_RECALL_NO_TXT;
+        public string MANUFACTURER_RECALL_NO_TXT { get; set; }
     }
 }
