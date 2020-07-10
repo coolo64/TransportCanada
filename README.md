@@ -2,7 +2,7 @@
 
 # Procédure d'installation
 Installation du Site web et de l'API 1 pour Windows IIS:
-1. Installer ASP.NET Core Runtime 3.1.15 - Windows Hosting Bundle (https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.5-windows-hosting-bundle-installer)
+1. Installer ASP.NET Core Runtime 3.1.5 - Windows Hosting Bundle (https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.5-windows-hosting-bundle-installer)
 2. Exécuter un IISRESET
 3. Créer un répertoir ou le site sera hébergé
 4. Copier le contenu de SiteEtAPI1/TransportCanada/bin/Debug/netcoreapp2.1/publish au dossier créé au point 3
@@ -17,7 +17,7 @@ Hébergement https://thebro.net/tc
 
 
 # Logiciels et versions requis
-ASP.NET Core Runtime 2.1.16 - Windows Hosting Bundle (https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.5-windows-hosting-bundle-installer)
+ASP.NET Core Runtime 3.1.5 - Windows Hosting Bundle (https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.5-windows-hosting-bundle-installer)
 
 
 # Instruction pour reconstruire les APIs
