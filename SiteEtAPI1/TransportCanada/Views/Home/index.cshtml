@@ -189,7 +189,7 @@
             $("#btnDownloadAPI3").attr("disabled", "true");
             $("#btnVisionnerAPI3").attr("disabled", "true");
 
-            url = $("#urlAPI3").val() + "/SystemType/" + $("#filtreAPI3").val();
+            url = $("#urlAPI3").val() + "?systemType=" + $("#filtreAPI3").val();
             $.ajax({
                 type: "GET",
                 url: url,
@@ -308,7 +308,7 @@
             </div>
             <div class="w-100"></div>
             <div class="col-8">
-                <input type="text" class="form-control" id="filtreAPI3" placeholder="Rechercher par type de système affecté, par exemple: Brakes" />
+                <input type="text" class="form-control" id="filtreAPI3" placeholder="Rechercher par type de système affecté, par exemple: Brakes. Laisser vide pour tous les résultats" />
             </div>
             <div class="col">
                 <button class="btn btn-secondary" id="btnDownloadAPI3" onclick="getAPI3('download')">T&eacute;l&eacute;charger le JSON</button>
