@@ -27,4 +27,6 @@ Le site web et l'API 1 peuvent être reconstruit en ouvrant la Solution API1/Tra
 # Autres informations
 Le site web devrait populer le lien pour l'API 1 automatiquement, si non le lien à utiliser est le lien de base du site (ex: https://thebro.net/tc/) suivi de API1/index.
 
+La recherche pour l'API 1 est une recherche "Contains" ex: 15C va sortir 3 résultat (15C07, 15C11, 15C13).
+
 Pour tous les APIs si le champs de recherche contient du texte l'option Visionner et Télécharger seront filtré d'après la valeur dans la boite de recherche.
