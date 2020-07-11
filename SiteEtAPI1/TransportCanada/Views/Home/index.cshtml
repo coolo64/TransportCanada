@@ -8,6 +8,7 @@
 
     <style type="text/css">
         .api{
+            margin: 5px;
             border: 1px solid black;
         }
 
@@ -216,7 +217,7 @@
             $("#urlAPI1").val("@(Context.Request.PathBase)/API1/index");
 
             //Ajouter l'url du API 3 (intégré)
-            $("#urlAPI3").val("@(Context.Request.PathBase)/API3/tc/API3");
+            $("#urlAPI3").val("/API3/tc/API3");
 
 
             //Lire les données du fichier entrant
@@ -243,14 +244,16 @@
     </script>
 </head>
 <body>
-    <div class="container" style="padding-top: 10px;">
+    <div class="container-fluid" style="padding-top: 10px;">
         <div class="row justify-content-around" style="margin-bottom: 10px;">
             <button class="col-3 btn btn-primary" role="button" onclick="show('API1')">API 1</button>
             <button class="col-3 btn btn-primary" role="button" onclick="show('API2')">API 2</button>
             <button class="col-3 btn btn-primary" role="button" onclick="show('API3')">API 3</button>
         </div>
-        <div class="row" id="instruction">
-            Veuillez cliquer sur un des API ci-haut.
+        <div class="row api" id="instruction">
+            <div>
+                Veuillez cliquer sur un des API ci-haut.
+            </div>
         </div>
 
 
@@ -301,7 +304,7 @@
             </div>
             <div class="col">
                 <button class="btn btn-secondary" id="btnAPI3" onclick="postAPI3()">POST &agrave; API 3</button>
-                <span id="postResultAPI1"></span>
+                <span id="postResultAPI3"></span>
             </div>
             <div class="w-100"></div>
             <div class="col-8">
