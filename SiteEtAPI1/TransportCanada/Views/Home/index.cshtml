@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -20,6 +20,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript">
         var contenuFichierAPI1;
+        var contenuFichierAPI3;
 
         var fichierJson = null;
 
@@ -125,6 +126,30 @@
             });
         }
 
+
+        /**
+         * Exécute un POST au URL définit dans le champs #urlAPI3, le corps du post contient le contenu d'un fichier JSON ajouté au champs #fichierAPI3
+         */
+        function postAPI3() {
+            console.log("POST API3");
+            $("#btnAPI3").attr("disabled", "true");
+
+            $("#postResultAPI3").text("En cours d'exécution.");
+
+            url = $("#urlAPI3").val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: url,
+                data: contenuFichierAPI3,
+                success: function () {
+                    $("#postResultAPI3").text("Succès");
+                }
+            }).fail(function (data) {
+                $("#postResultAPI3").text("Erreur : " + data);
+            });
+        }
+
         /**
          * exécute un GET au URL définit dans le champs #urlAPI1 avec un filtre définit par #filtreAPI1
          * param type Détermine la méthode qui sera exécuté après le GET
@@ -153,13 +178,46 @@
         }
 
 
+        /**
+         * exécute un GET au URL définit dans le champs #urlAPI3 avec un filtre définit par #filtreAPI3
+         * param type Détermine la méthode qui sera exécuté après le GET
+         */
+        function getAPI3(type) {
+            console.log("GET API3");
+
+            $("#btnDownloadAPI3").attr("disabled", "true");
+            $("#btnVisionnerAPI3").attr("disabled", "true");
+
+            url = $("#urlAPI3").val() + "/SystemType/" + $("#filtreAPI3").val();
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (data) {
+                    if (type == "download") {
+                        telechargerJson(data, "API3");
+                    }
+                    else {
+                        visionnerLeTableau(data, "API3");
+                    }
+                    $("#btnDownloadAPI3").removeAttr("disabled");
+                    $("#btnVisionnerAPI3").removeAttr("disabled");
+                }
+            });
+        }
+
+
         //Ajouter les valeurs par défaut
         $(document).ready(function () {
             show("instruction");
             $("#btnAPI1").attr("disabled", "true");
+            $("#btnAPI3").attr("disabled", "true");
 
             //Ajouter l'url du API 1 (intégré)
             $("#urlAPI1").val("@(Context.Request.PathBase)/API1/index");
+
+            //Ajouter l'url du API 3 (intégré)
+            $("#urlAPI3").val("@(Context.Request.PathBase)/API3/tc/API3");
+
 
             //Lire les données du fichier entrant
             $("#fichierAPI1").on('change', event => {
@@ -169,6 +227,16 @@
                             contenuFichierAPI1 = event.target.result;
                     $("#btnAPI1").removeAttr("disabled");
                     });
+                reader.readAsText(file);
+            });
+
+            $("#fichierAPI3").on('change', event => {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                reader.addEventListener('load', event => {
+                    contenuFichierAPI3 = event.target.result;
+                    $("#btnAPI3").removeAttr("disabled");
+                });
                 reader.readAsText(file);
             });
         });
@@ -224,7 +292,30 @@
 
 
         <div class="row api" id="API3">
-            3
+            <div class="col">
+                <input type="text" class="form-control" id="urlAPI3" value="" placeholder="Lien au API" />
+            </div>
+            <div class="w-100"></div>
+            <div class="col-8">
+                <input class="form-control" type="file" id="fichierAPI3" accept=".json" />
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary" id="btnAPI3" onclick="postAPI3()">POST &agrave; API 3</button>
+                <span id="postResultAPI1"></span>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-8">
+                <input type="text" class="form-control" id="filtreAPI3" placeholder="Rechercher par type de système affecté, par exemple: Brakes" />
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary" id="btnDownloadAPI3" onclick="getAPI3('download')">T&eacute;l&eacute;charger le JSON</button>
+                <button class="btn btn-secondary" id="btnVisionnerAPI3" onclick="getAPI3('visionner')">Visionner les données</button>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <table class="table">
+                </table>
+            </div>
         </div>
     </div>
 
